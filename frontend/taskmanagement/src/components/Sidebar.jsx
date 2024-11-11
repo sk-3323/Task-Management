@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { logout } from "../store/authSlice";
-
 const Sidebar = () => {
+  const [msg, setMsg] = useState("");
   const auth = useSelector((store) => store.auth);
   console.log(auth);
 
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logout());
+    axios
+      .post("http://localhost:3000/api/users/logout")
+      .then((res) => setMsg(res.data.message))
+      .catch((err) => console.error(err));
   };
   return (
     <>
@@ -46,8 +50,9 @@ const Sidebar = () => {
             <li>
               <h1 className="my-5 font-bold text-2xl">Task Management</h1>
               {auth.user !== null && (
-                <p className="text-gray-400">{auth.user.email}</p>
+                <p className="text-gray-400">{auth.user}</p>
               )}
+              {msg && <p className="text-green-400">{msg}</p>}
             </li>
 
             <li>

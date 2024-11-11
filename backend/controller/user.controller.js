@@ -51,7 +51,7 @@ export const loginUser = async (req, res) => {
       return res.status(404).json({ message: "Invalid Credentials" });
     }
 
-    const age = 1000 * 60 * 60 * 24 * 7;
+    const age = 24 * 60 * 60 * 1000;
 
     const token = jwt.sign(
       { id: userByUsername.id },
@@ -61,8 +61,8 @@ export const loginUser = async (req, res) => {
 
     res
       .cookie("token", token, {
-        httpOnly: true,
-        sameSite: "none",
+        httpOnly: false,
+        sameSite: "Strict",
         secure: true,
         maxAge: age,
       })

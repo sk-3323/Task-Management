@@ -7,8 +7,6 @@ function App() {
     <>
       <Sidebar />
       <Outlet />
-
-      {/* <Home /> */}
     </>
   );
 }

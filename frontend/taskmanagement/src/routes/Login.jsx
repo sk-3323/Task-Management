@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import store from "../store";
 import { login } from "../store/authSlice";
 
 const Login = () => {
@@ -29,7 +28,7 @@ const Login = () => {
       );
 
       if (response.status === 200) {
-        dispatch(login(data));
+        dispatch(login(data.email));
         navigate("/");
       }
     } catch (err) {
